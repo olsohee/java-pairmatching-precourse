@@ -2,7 +2,9 @@ package pairmatching.message;
 
 public enum ErrorMessage {
 
-    INVALID_INPUT("잘못된 입력입니다.");
+    INVALID_INPUT("잘못된 입력입니다."),
+    NOT_FOUND_MATCHING("매칭 이력이 없습니다.")
+    ;
 
     private static final String ERROR_HEADER = "[ERROR]";
     private final String errorMessage;

@@ -30,7 +30,7 @@ public class OutputView {
     }
 
     public void printMatchingResult(List<PairDto> pairDtos) {
-        System.out.println(OutputMessage.MATCHING_RESULT);
+        System.out.println(OutputMessage.MATCHING_RESULT.getMessage());
         for (int i = 0; i < pairDtos.size(); i++) {
             PairDto pairDto = pairDtos.get(i);
             if (pairDto.getCrew3() == null) {
@@ -45,5 +45,6 @@ public class OutputView {
                     pairDtos.get(i).getCrew3()));
             break;
         }
+        System.out.println();
     }
 }

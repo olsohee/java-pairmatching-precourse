@@ -2,6 +2,7 @@ package pairmatching.repository;
 
 import pairmatching.domain.Condition;
 import pairmatching.domain.Matching;
+import pairmatching.message.ErrorMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,6 @@ public class MatchingRepository {
         return matchings.stream()
                 .filter(matching -> matching.getCondition().equals(condition))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.NOT_FOUND_MATCHING.getErrorMessage()));
     }
 }

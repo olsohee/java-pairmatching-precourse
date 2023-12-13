@@ -14,6 +14,7 @@ public class Controller {
     private final OutputView outputView;
     private final Service service;
     private Command command;
+    private boolean isEnd = false;
 
     public Controller(InputView inputView, InputConvertor inputConvertor, OutputView outputView, Service service) {
         this.inputView = inputView;
@@ -23,10 +24,22 @@ public class Controller {
     }
 
     public void start() {
-        readCommmand();
-        if (command == Command.MATCHING) {
-            outputView.printNotice();
-            startMatching();
+        while (!isEnd) {
+            readCommmand();
+            if (command == Command.MATCHING) {
+                outputView.printNotice();
+                startMatching();
+            }
+            if (command == Command.CHECK) {
+                outputView.printNotice();
+                startCheck();
+            }
+            if (command == Command.RESET) {
+                //todo
+            }
+            if (command == Command.QUIT) {
+               isEnd = true;
+            }
         }
     }
 
@@ -53,6 +66,16 @@ public class Controller {
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             startMatching();
+        }
+    }
+
+    private void startCheck() {
+        try {
+            Condition condition = inputConvertor.convertStringToCondition(inputView.readMatchingCondition());
+            outputView.printMatchingResult(service.getMatchingResultDto(condition));
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+            startCheck();
         }
     }
 }

@@ -1,6 +1,6 @@
 package pairmatching.repository;
 
-import pairmatching.domain.Condition;
+import pairmatching.dto.Condition;
 import pairmatching.domain.Matching;
 import pairmatching.message.ErrorMessage;
 

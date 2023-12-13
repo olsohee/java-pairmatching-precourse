@@ -1,30 +1,16 @@
 package pairmatching.domain;
 
+import java.util.Set;
+
 public class Pair {
 
-    private Crew crew1;
-    private Crew crew2;
-    private Crew crew3;
+    private Set<Crew> crews;
 
-    public Pair(Crew crew1, Crew crew2, Crew crew3) {
-        this.crew1 = crew1;
-        this.crew2 = crew2;
-        this.crew3 = crew3;
+    public Pair(Set<Crew> crews) {
+        this.crews = crews;
     }
 
-    public Pair(Crew crew1, Crew crew2) {
-        this(crew1, crew2, null);
-    }
-
-    public Crew getCrew1() {
-        return crew1;
-    }
-
-    public Crew getCrew2() {
-        return crew2;
-    }
-
-    public Crew getCrew3() {
-        return crew3;
+    public Set<Crew> getCrews() {
+        return crews;
     }
 }

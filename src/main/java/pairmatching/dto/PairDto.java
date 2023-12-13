@@ -1,26 +1,16 @@
 package pairmatching.dto;
 
+import java.util.List;
+
 public class PairDto {
 
-    private final String crew1;
-    private final String crew2;
-    private final String crew3;
+    private final List<String> crewNames;
 
-    public PairDto(String crew1, String crew2, String crew3) {
-        this.crew1 = crew1;
-        this.crew2 = crew2;
-        this.crew3 = crew3;
+    public PairDto(List<String> crewNames) {
+        this.crewNames = crewNames;
     }
 
-    public String getCrew1() {
-        return crew1;
-    }
-
-    public String getCrew2() {
-        return crew2;
-    }
-
-    public String getCrew3() {
-        return crew3;
+    public List<String> getCrewNames() {
+        return crewNames;
     }
 }

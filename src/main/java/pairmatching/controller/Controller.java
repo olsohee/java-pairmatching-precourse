@@ -1,8 +1,8 @@
 package pairmatching.controller;
 
 import pairmatching.convertor.InputConvertor;
-import pairmatching.domain.command.Command;
-import pairmatching.domain.Condition;
+import pairmatching.domain.command.FunctionCommand;
+import pairmatching.dto.Condition;
 import pairmatching.domain.command.RematchingCommand;
 import pairmatching.service.Service;
 import pairmatching.view.InputView;
@@ -14,7 +14,7 @@ public class Controller {
     private final InputConvertor inputConvertor;
     private final OutputView outputView;
     private final Service service;
-    private Command command;
+    private FunctionCommand functionCommand;
     private boolean isEnd = false;
 
     public Controller(InputView inputView, InputConvertor inputConvertor, OutputView outputView, Service service) {
@@ -27,18 +27,18 @@ public class Controller {
     public void start() {
         while (!isEnd) {
             readCommand();
-            if (command == Command.MATCHING) {
+            if (functionCommand == FunctionCommand.MATCHING) {
                 outputView.printNotice();
                 startMatching();
             }
-            if (command == Command.CHECK) {
+            if (functionCommand == FunctionCommand.CHECK) {
                 outputView.printNotice();
                 startCheck();
             }
-            if (command == Command.RESET) {
+            if (functionCommand == FunctionCommand.RESET) {
                 startReset();
             }
-            if (command == Command.QUIT) {
+            if (functionCommand == FunctionCommand.QUIT) {
                isEnd = true;
             }
         }
@@ -46,8 +46,7 @@ public class Controller {
 
     private void readCommand() {
         try {
-            String input = inputView.readCommand();
-            command = Command.getCommand(input);
+            functionCommand = FunctionCommand.getCommand(inputView.readCommand());
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             readCommand();
@@ -57,19 +56,21 @@ public class Controller {
     private void startMatching() {
         try {
             Condition condition = inputConvertor.convertStringToCondition(inputView.readMatchingCondition());
-
-            if (service.isExistByCondition(condition)) {
-                RematchingCommand rematchingCommand = RematchingCommand.getRematchingCommand(inputView.readRematching());
-                if (rematchingCommand == RematchingCommand.END) {
-                    startMatching();
-                    return;
-                }
-            }
+            validateRecordByCondition(condition);
             service.startMatching(condition);
             outputView.printMatchingResult(service.getMatchingResultDto(condition));
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             startMatching();
+        }
+    }
+
+    private void validateRecordByCondition(Condition condition) {
+        if (service.isExistByCondition(condition)) {
+            RematchingCommand rematchingCommand = RematchingCommand.getRematchingCommand(inputView.readRematching());
+            if (rematchingCommand == RematchingCommand.END) {
+                startMatching();
+            }
         }
     }
 

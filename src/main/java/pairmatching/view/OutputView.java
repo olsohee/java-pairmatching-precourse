@@ -31,19 +31,15 @@ public class OutputView {
 
     public void printMatchingResult(List<PairDto> pairDtos) {
         System.out.println(OutputMessage.MATCHING_RESULT.getMessage());
-        for (int i = 0; i < pairDtos.size(); i++) {
-            PairDto pairDto = pairDtos.get(i);
-            if (pairDto.getCrew3() == null) {
-                System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR.getMessage(),
-                        pairDtos.get(i).getCrew1(),
-                        pairDtos.get(i).getCrew2()));
+        for (PairDto pairDto : pairDtos) {
+            List<String> crewNames = pairDto.getCrewNames();
+            if (crewNames.size() == 3) {
+                System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR_THREE.getMessage(),
+                        crewNames.get(0), crewNames.get(1), pairDtos.get(2)));
                 continue;
             }
-            System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR_THREE.getMessage(),
-                    pairDtos.get(i).getCrew1(),
-                    pairDtos.get(i).getCrew2(),
-                    pairDtos.get(i).getCrew3()));
-            break;
+            System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR.getMessage(),
+                    crewNames.get(0), crewNames.get(1)));
         }
         System.out.println();
     }

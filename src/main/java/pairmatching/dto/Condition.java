@@ -1,4 +1,8 @@
-package pairmatching.domain;
+package pairmatching.dto;
+
+import pairmatching.domain.Course;
+import pairmatching.domain.mission.Level;
+import pairmatching.domain.mission.Mission;
 
 import java.util.Objects;
 
@@ -20,10 +24,6 @@ public class Condition {
 
     public Level getLevel() {
         return level;
-    }
-
-    public Mission getMission() {
-        return mission;
     }
 
     @Override

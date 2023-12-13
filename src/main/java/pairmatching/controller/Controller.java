@@ -49,7 +49,7 @@ public class Controller {
 //            }
             // 페어매칭하기
             service.startMatching(condition);
-//            outputView.printMatchingResult(service.getMatchingResultDto());
+            outputView.printMatchingResult(service.getMatchingResultDto(condition));
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             startMatching();

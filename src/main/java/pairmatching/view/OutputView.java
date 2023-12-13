@@ -1,6 +1,9 @@
 package pairmatching.view;
 
+import pairmatching.dto.PairDto;
 import pairmatching.message.OutputMessage;
+
+import java.util.List;
 
 public class OutputView {
 
@@ -24,5 +27,23 @@ public class OutputView {
         System.out.println(OutputMessage.COURSE.getMessage());
         System.out.println(OutputMessage.MISSIONG.getMessage());
         System.out.println(OutputMessage.LINE.getMessage());
+    }
+
+    public void printMatchingResult(List<PairDto> pairDtos) {
+        System.out.println(OutputMessage.MATCHING_RESULT);
+        for (int i = 0; i < pairDtos.size(); i++) {
+            PairDto pairDto = pairDtos.get(i);
+            if (pairDto.getCrew3() == null) {
+                System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR.getMessage(),
+                        pairDtos.get(i).getCrew1(),
+                        pairDtos.get(i).getCrew2()));
+                continue;
+            }
+            System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR_THREE.getMessage(),
+                    pairDtos.get(i).getCrew1(),
+                    pairDtos.get(i).getCrew2(),
+                    pairDtos.get(i).getCrew3()));
+            break;
+        }
     }
 }

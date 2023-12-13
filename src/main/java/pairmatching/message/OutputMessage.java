@@ -9,7 +9,10 @@ public enum OutputMessage {
             "  - 레벨2: 장바구니 | 결제 | 지하철노선도\n" +
             "  - 레벨3: \n" +
             "  - 레벨4: 성능개선 | 배포\n" +
-            "  - 레벨5: ")
+            "  - 레벨5: "),
+    MATCHING_RESULT("페어 매칭 결과입니다."),
+    MATCHING_RESULT_PAIR("%s : %s"),
+    MATCHING_RESULT_PAIR_THREE("%s : %s : %s")
     ;
 
     private final String message;

@@ -26,7 +26,7 @@ public class Controller {
         readCommmand();
         if (command == Command.MATCHING) {
             outputView.printNotice();
-            playMatching();
+            startMatching();
         }
     }
 
@@ -40,12 +40,19 @@ public class Controller {
         }
     }
 
-    private void playMatching() {
+    private void startMatching() {
         try {
             Condition condition = inputConvertor.convertStringToCondition(inputView.readMatchingCondition());
+//            if (service.isExistByCondition(condition)) {
+                // 페어 재매칭 안내 문구 출력
+//                return;
+//            }
+            // 페어매칭하기
+            service.startMatching(condition);
+//            outputView.printMatchingResult(service.getMatchingResultDto());
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
-            playMatching();
+            startMatching();
         }
     }
 }

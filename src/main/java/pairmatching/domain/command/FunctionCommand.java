@@ -4,7 +4,7 @@ import pairmatching.message.ErrorMessage;
 
 import java.util.Arrays;
 
-public enum Command {
+public enum FunctionCommand {
 
     MATCHING("1"),
     CHECK("2"),
@@ -13,13 +13,13 @@ public enum Command {
 
     private final String command;
 
-    Command(String command) {
+    FunctionCommand(String command) {
         this.command = command;
     }
 
-    public static Command getCommand(String input) {
-        return Arrays.stream(Command.values())
-                .filter(command -> command.getCommand().equals(input))
+    public static FunctionCommand getCommand(String input) {
+        return Arrays.stream(FunctionCommand.values())
+                .filter(functionCommand -> functionCommand.getCommand().equals(input))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage()));
     }

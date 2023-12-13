@@ -9,6 +9,7 @@ public class InputView {
     private static final String CHECK = "2. 페어 조회";
     private static final String RESET = "3. 페어 초기화";
     private static final String QUIT = "Q. 종료";
+    private static final String READ_MATCHING_CONDITION = "과정, 레벨, 미션을 선택하세요.\nex) 백엔드, 레벨1, 자동차경주";
 
     private InputView() {
     }
@@ -27,6 +28,11 @@ public class InputView {
         System.out.println(CHECK);
         System.out.println(RESET);
         System.out.println(QUIT);
+        return Console.readLine();
+    }
+
+    public String readMatchingCondition() {
+        System.out.println(READ_MATCHING_CONDITION);
         return Console.readLine();
     }
 }

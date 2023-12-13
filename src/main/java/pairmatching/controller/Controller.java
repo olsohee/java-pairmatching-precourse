@@ -1,6 +1,8 @@
 package pairmatching.controller;
 
 import pairmatching.convertor.InputConvertor;
+import pairmatching.domain.Command;
+import pairmatching.domain.Condition;
 import pairmatching.service.Service;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
@@ -22,6 +24,10 @@ public class Controller {
 
     public void start() {
         readCommmand();
+        if (command == Command.MATCHING) {
+            outputView.printNotice();
+            playMatching();
+        }
     }
 
     private void readCommmand() {
@@ -31,6 +37,15 @@ public class Controller {
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             readCommmand();
+        }
+    }
+
+    private void playMatching() {
+        try {
+            Condition condition = inputConvertor.convertStringToCondition(inputView.readMatchingCondition());
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+            playMatching();
         }
     }
 }

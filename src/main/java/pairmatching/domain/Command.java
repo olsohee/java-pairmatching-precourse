@@ -1,4 +1,4 @@
-package pairmatching.controller;
+package pairmatching.domain;
 
 import pairmatching.message.ErrorMessage;
 

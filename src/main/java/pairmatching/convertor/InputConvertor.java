@@ -1,6 +1,6 @@
 package pairmatching.convertor;
 
-import pairmatching.dto.Condition;
+import pairmatching.domain.Condition;
 import pairmatching.domain.Course;
 import pairmatching.domain.mission.Level;
 import pairmatching.domain.mission.Mission;

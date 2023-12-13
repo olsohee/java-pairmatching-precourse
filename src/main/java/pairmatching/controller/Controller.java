@@ -2,7 +2,7 @@ package pairmatching.controller;
 
 import pairmatching.convertor.InputConvertor;
 import pairmatching.domain.command.FunctionCommand;
-import pairmatching.dto.Condition;
+import pairmatching.domain.Condition;
 import pairmatching.domain.command.RematchingCommand;
 import pairmatching.service.Service;
 import pairmatching.view.InputView;

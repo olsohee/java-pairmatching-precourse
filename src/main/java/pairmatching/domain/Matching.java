@@ -1,7 +1,5 @@
 package pairmatching.domain;
 
-import pairmatching.dto.Condition;
-
 import java.util.List;
 
 public class Matching {

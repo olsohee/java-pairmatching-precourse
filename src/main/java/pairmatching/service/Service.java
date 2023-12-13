@@ -2,8 +2,7 @@ package pairmatching.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import pairmatching.domain.*;
-import pairmatching.domain.mission.Level;
-import pairmatching.dto.Condition;
+import pairmatching.domain.Condition;
 import pairmatching.dto.PairDto;
 import pairmatching.message.ErrorMessage;
 import pairmatching.repository.CrewRepository;

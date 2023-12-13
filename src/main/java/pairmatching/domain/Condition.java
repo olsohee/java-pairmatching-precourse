@@ -1,6 +1,5 @@
-package pairmatching.dto;
+package pairmatching.domain;
 
-import pairmatching.domain.Course;
 import pairmatching.domain.mission.Level;
 import pairmatching.domain.mission.Mission;
 

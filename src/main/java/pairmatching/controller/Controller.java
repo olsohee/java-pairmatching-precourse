@@ -35,7 +35,7 @@ public class Controller {
                 startCheck();
             }
             if (command == Command.RESET) {
-                //todo
+                startReset();
             }
             if (command == Command.QUIT) {
                isEnd = true;
@@ -77,5 +77,10 @@ public class Controller {
             outputView.printErrorMessage(e.getMessage());
             startCheck();
         }
+    }
+
+    private void startReset() {
+        service.reset();
+        outputView.printReset();
     }
 }

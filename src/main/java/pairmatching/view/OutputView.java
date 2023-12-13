@@ -47,4 +47,8 @@ public class OutputView {
         }
         System.out.println();
     }
+
+    public void printReset() {
+        System.out.println(OutputMessage.RESET);
+    }
 }

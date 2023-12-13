@@ -12,7 +12,8 @@ public enum OutputMessage {
             "  - 레벨5: "),
     MATCHING_RESULT("페어 매칭 결과입니다."),
     MATCHING_RESULT_PAIR("%s : %s"),
-    MATCHING_RESULT_PAIR_THREE("%s : %s : %s")
+    MATCHING_RESULT_PAIR_THREE("%s : %s : %s"),
+    RESET("초기화 되었습니다.")
     ;
 
     private final String message;

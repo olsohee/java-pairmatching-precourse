@@ -3,7 +3,6 @@ package pairmatching.service;
 import camp.nextstep.edu.missionutils.Randoms;
 import pairmatching.domain.*;
 import pairmatching.dto.PairDto;
-import pairmatching.message.OutputMessage;
 import pairmatching.repository.CrewRepository;
 import pairmatching.repository.MatchingRepository;
 
@@ -12,7 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Service {
 
@@ -73,8 +71,7 @@ public class Service {
         return pairDtos;
     }
 
-//    public void findMatching(Condition condition) {
-//        matchingRepository.findByCondition(condition);
-//
-//    }
+    public void reset() {
+        matchingRepository.reset();
+    }
 }

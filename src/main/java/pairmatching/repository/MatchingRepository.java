@@ -21,4 +21,8 @@ public class MatchingRepository {
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.NOT_FOUND_MATCHING.getErrorMessage()));
     }
+
+    public void reset() {
+        matchings.clear();
+    }
 }

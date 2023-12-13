@@ -1,7 +1,5 @@
 package pairmatching.domain;
 
-import java.util.Objects;
-
 public class Pair {
 
     private Crew crew1;

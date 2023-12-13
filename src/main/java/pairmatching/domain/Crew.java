@@ -13,4 +13,8 @@ public class Crew {
     public String getName() {
         return name;
     }
+
+    public boolean isCollectByCourse(Course course) {
+        return this.course == course;
+    }
 }

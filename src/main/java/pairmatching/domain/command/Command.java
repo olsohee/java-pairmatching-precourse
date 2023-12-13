@@ -1,4 +1,4 @@
-package pairmatching.domain;
+package pairmatching.domain.command;
 
 import pairmatching.message.ErrorMessage;
 

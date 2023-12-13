@@ -1,8 +1,9 @@
 package pairmatching.controller;
 
 import pairmatching.convertor.InputConvertor;
-import pairmatching.domain.Command;
+import pairmatching.domain.command.Command;
 import pairmatching.domain.Condition;
+import pairmatching.domain.command.RematchingCommand;
 import pairmatching.service.Service;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
@@ -25,7 +26,7 @@ public class Controller {
 
     public void start() {
         while (!isEnd) {
-            readCommmand();
+            readCommand();
             if (command == Command.MATCHING) {
                 outputView.printNotice();
                 startMatching();
@@ -43,24 +44,27 @@ public class Controller {
         }
     }
 
-    private void readCommmand() {
+    private void readCommand() {
         try {
             String input = inputView.readCommand();
             command = Command.getCommand(input);
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
-            readCommmand();
+            readCommand();
         }
     }
 
     private void startMatching() {
         try {
             Condition condition = inputConvertor.convertStringToCondition(inputView.readMatchingCondition());
-//            if (service.isExistByCondition(condition)) {
-                // 페어 재매칭 안내 문구 출력
-//                return;
-//            }
-            // 페어매칭하기
+
+            if (service.isExistByCondition(condition)) {
+                RematchingCommand rematchingCommand = RematchingCommand.getRematchingCommand(inputView.readRematching());
+                if (rematchingCommand == RematchingCommand.END) {
+                    startMatching();
+                    return;
+                }
+            }
             service.startMatching(condition);
             outputView.printMatchingResult(service.getMatchingResultDto(condition));
         } catch (IllegalArgumentException e) {

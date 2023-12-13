@@ -15,6 +15,18 @@ public class MatchingRepository {
         matchings.add(matching);
     }
 
+    public boolean isExistByCondition(Condition condition) {
+        return matchings.stream()
+                .anyMatch(matching -> matching.getCondition().equals(condition));
+    }
+
+    public void deleteByCondition(Condition condition) {
+        Matching deleteMatching = matchings.stream()
+                .filter(matching -> matching.getCondition().equals(condition))
+                .findAny().get();
+        matchings.remove(deleteMatching);
+    }
+
     public Matching findByCondition(Condition condition) {
         return matchings.stream()
                 .filter(matching -> matching.getCondition().equals(condition))

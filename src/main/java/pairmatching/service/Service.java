@@ -38,6 +38,15 @@ public class Service {
         }
     }
 
+    public boolean isExistByCondition(Condition condition) {
+        try {
+            matchingRepository.findByCondition(condition);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
     public void startMatching(Condition condition) {
 
         List<String> crewNames = crewRepository.findCrewByCourse(condition.getCourse());
@@ -54,6 +63,11 @@ public class Service {
             pairs.add(new Pair(new Crew(condition.getCourse(), shuffledCrew.get(i)), new Crew(condition.getCourse(), shuffledCrew.get(i + 1))));
         }
 
+        if (matchingRepository.isExistByCondition(condition)) {
+            matchingRepository.deleteByCondition(condition);
+            matchingRepository.save(new Matching(pairs, condition));
+            return;
+        }
         matchingRepository.save(new Matching(pairs, condition));
     }
 

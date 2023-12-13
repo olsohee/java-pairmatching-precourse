@@ -1,4 +1,4 @@
-package pairmatching.domain;
+package pairmatching.domain.mission;
 
 import pairmatching.message.ErrorMessage;
 
@@ -29,5 +29,10 @@ public enum Mission {
                 .filter(mission -> mission.level.equals(Level.findLevel(inputLevel)))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage()));
+    }
+
+    public static boolean isExistMissionByLevel(Level level) {
+        return Arrays.stream(Mission.values())
+                .anyMatch(mission -> mission.level.equals(level));
     }
 }

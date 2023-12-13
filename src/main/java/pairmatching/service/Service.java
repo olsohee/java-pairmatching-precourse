@@ -3,6 +3,7 @@ package pairmatching.service;
 import camp.nextstep.edu.missionutils.Randoms;
 import pairmatching.domain.*;
 import pairmatching.domain.Condition;
+import pairmatching.domain.mission.Level;
 import pairmatching.dto.PairDto;
 import pairmatching.message.ErrorMessage;
 import pairmatching.repository.CrewRepository;
@@ -10,10 +11,7 @@ import pairmatching.repository.MatchingRepository;
 import pairmatching.repository.PairRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Service {
@@ -32,33 +30,25 @@ public class Service {
 
     public void startMatching(Condition condition) {
         List<String> shuffledCrew = shuffle(condition);
-
         List<Pair> pairs = new ArrayList<>();
         for (int i = 0; i < shuffledCrew.size(); i += 2) {
-            Set<Crew> crews = new HashSet<>();
+            LinkedHashSet<Crew> crews = new LinkedHashSet<>();
+            Pair pair;
             if (i + 3 == shuffledCrew.size()) {
-                Crew crew1 = new Crew(condition.getCourse(), shuffledCrew.get(i));
-                Crew crew2 = new Crew(condition.getCourse(), shuffledCrew.get(i + 1));
-                Crew crew3 = new Crew(condition.getCourse(), shuffledCrew.get(i + 2));
-                crews.add(crew1);
-                crews.add(crew2);
-                crews.add(crew3);
+                crews.add(new Crew(condition.getCourse(), shuffledCrew.get(i)));
+                crews.add(new Crew(condition.getCourse(), shuffledCrew.get(i + 1)));
+                crews.add(new Crew(condition.getCourse(), shuffledCrew.get(i + 2)));
+                pair = new Pair(crews);
+                validateDuplicated(pair, condition);
+                pairs.add(pair);
+                break;
             } else {
-                Crew crew1 = new Crew(condition.getCourse(), shuffledCrew.get(i));
-                Crew crew2 = new Crew(condition.getCourse(), shuffledCrew.get(i + 1));
-                crews.add(crew1);
-                crews.add(crew2);
+                crews.add(new Crew(condition.getCourse(), shuffledCrew.get(i)));
+                crews.add(new Crew(condition.getCourse(), shuffledCrew.get(i + 1)));
+                pair = new Pair(crews);
+                validateDuplicated(pair, condition);
+                pairs.add(pair);
             }
-
-            if (pairRepository.isExistByLevel(crews, condition.getLevel())) {
-                if (shuffleCount == 2) {
-                    shuffleCount = 0;
-                    throw new IllegalArgumentException(ErrorMessage.MATCHING_FAIL.getErrorMessage());
-                }
-                startMatching(condition);
-                shuffleCount++;
-            }
-            pairs.add(new Pair(crews));
         }
 
         if (matchingRepository.isExistByCondition(condition)) {
@@ -67,6 +57,17 @@ public class Service {
             return;
         }
         save(new Matching(pairs, condition));
+    }
+
+    private void validateDuplicated(Pair pair, Condition condition) {
+        if (pairRepository.isExistByLevel(pair, condition.getLevel())) {
+            if (shuffleCount == 2) {
+                shuffleCount = 0;
+                throw new IllegalArgumentException(ErrorMessage.MATCHING_FAIL.getErrorMessage());
+            }
+            startMatching(condition);
+            shuffleCount++;
+        }
     }
 
     private void save(Matching matching) {

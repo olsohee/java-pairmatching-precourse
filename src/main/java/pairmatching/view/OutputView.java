@@ -35,7 +35,7 @@ public class OutputView {
             List<String> crewNames = pairDto.getCrewNames();
             if (crewNames.size() == 3) {
                 System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR_THREE.getMessage(),
-                        crewNames.get(0), crewNames.get(1), pairDtos.get(2)));
+                        crewNames.get(0), crewNames.get(1), crewNames.get(2)));
                 continue;
             }
             System.out.println(String.format(OutputMessage.MATCHING_RESULT_PAIR.getMessage(),
